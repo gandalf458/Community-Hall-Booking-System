@@ -1,0 +1,130 @@
+.footer {
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  background-color: #dddde4;
+  color: #2f3133;
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+  
+}
+.login-area{
+  background-color: #e8e5e5;
+  padding: 20px;
+  width: 50%;
+  margin: 100px auto;
+  border-radius: 5px;
+}
+
+main {
+  margin-top: 6em;
+  margin-bottom: 3em;
+}
+
+.logo {
+  margin: 2em 0 0;
+}
+
+/* Home page */
+.hpblock {
+  padding: 2rem 1rem;
+  margin-bottom: 2rem;
+  background-color: #e9ecef;
+  border-radius: .3rem;
+  text-align: center;
+}
+.navBox {
+  display: grid;
+  grid-template-columns: 8em 8em 8em 8em;
+  grid-template-rows: auto;
+  gap: .8em;
+  justify-content: center;
+  margin: 2em 0 0;
+}
+.navC, .navH, .navM, .navB {
+  text-align: center;
+  transition: background-color .15s ease-in-out;
+  border-radius: .25em;
+}
+.navC {
+  background-color: #336666;
+}
+.navC:hover, .navC:focus {
+  background-color: #2B5555;
+}
+.navH {
+  background-color: #406194;
+}
+.navH:hover, .navH:focus {
+  background-color: #385582;
+}
+.navM {
+  background-color: #DA612C;
+}
+.navM:hover, .navM:focus {
+  background-color: #C95623;
+}
+.navB {
+  background-color: #A60035;
+}
+.navB:hover, .navB:focus {
+  background-color: #8D002D;
+}
+.navBox a {
+  display: block;
+  padding: 1.2em 0;
+  text-decoration: none;
+  color: #fff;
+}
+
+/* BS replacement */
+
+/* Edit/Delete buttons */
+.btnPair {
+  display: flex;
+}
+.btnEdit, .btnDelete {
+  border: 1px solid transparent;
+  padding: .375rem .75rem;
+  border-radius: .25rem;
+  transition: color .15s ease-in-out,
+    background-color .15s ease-in-out,
+    border-color .15s ease-in-out,
+    box-shadow .15s ease-in-out;
+  cursor: pointer;
+}
+.btnEdit {
+  color: #fff;
+  background-color: #007bff;
+  border-color: #007bff;
+  margin-right: .3em;
+}
+.btnEdit:hover {
+  color: #fff;
+  background-color: #0069d9;
+  border-color: #0062cc;
+  text-decoration: none;
+}
+.btnDelete {
+  color: #fff;
+  background-color: #dc3545;
+  border-color: #dc3545;
+}
+.btnDelete:hover {
+  color: #fff;
+  background-color: #c82333;
+  border-color: #bd2130;
+}
+
+@media only screen and (max-width: 600px) {
+  .navBox {
+    grid-template-columns: 8em 8em!important;
+  }
+  .navC {order: 1;}
+  .navH {order: 2;}
+  .navM {order: 3;}
+  .navB {order: 4;}
+  }
+}
