@@ -35,4 +35,6 @@ The login system is unfinished. As it stands the system doesn't require the user
 
 The copyright statement seems to be meaningless as the Convention Hall Owners Association doesn't appear to exist, but it has been left in for the heck of it.🤷
 
-_Last modified 2021-09-12_
+A demo is available at https://gandalf458.co.uk/chbs/
+
+_Last modified 2021-09-15_
