@@ -1,21 +1,21 @@
 <?php include 'inc/header.inc.php'; ?>
-
+<!--
 <h2>Find Manager</h2>
   <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="text" name="manager_id" placeholder="Search" aria-label="Search">
-    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    <input class="form-control mr-sm-2" type="text" name="manager_id" placeholder="Enter Manager ID" aria-label="Search">
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
   </form>
   <br>
   <br>
   <br>
-
+-->
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
-  $manager_id = $_POST['manager_id'];
-  $name       = $_POST['name'];
-  $phone      = $_POST['phone'];
-  $email      = $_POST['email'];
+  $manager_id = clean_str($_POST['manager_id']);
+  $name       = clean_str($_POST['name']);
+  $phone      = clean_str($_POST['phone']);
+  $email      = clean_str($_POST['email']);
 
   $q = 'UPDATE manager SET name=:name, phone=:phone, email=:email WHERE manager_id = :manager_id';
   $data = ['name' => $name, 'phone' => $phone, 'email' => $email, 'manager_id' => $manager_id];
@@ -43,12 +43,12 @@ if (isset($_GET['manager_id']) ){
     $email = $manager['email'];
 ?>
 
-  <h3>Edit Manager ID: <?=$manager_id?></h3>
+  <h2>Edit Manager ID: <?=$manager_id?></h2>
   <form method="post" action="edit_manager.php">
     <input type="hidden" name="manager_id" value="<?=$manager_id?>">
     <div class="form-group">
       <label for="name">Manager Name</label>
-      <input type="text" name="name" value="<?=$name?>" required class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+      <input type="text" name="name" value="<?=$name?>" required class="form-control" id="name" placeholder="Enter Name">
     </div>
     <div class="form-group">
       <label for="phone">Phone</label>

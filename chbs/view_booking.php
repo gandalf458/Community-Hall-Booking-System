@@ -2,33 +2,36 @@
 include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $booking_id = $_POST['booking_id'];
+  $booking_id = (int)$_POST['booking_id'];
 
-// Are you sure?
-  $q = "DELETE FROM booking where booking_id = ?";
-  $stmt = $pdo->prepare($q);
-  $stmt->execute([$booking_id]);
-  $result = $stmt->rowCount();
+  try {
+    $q = "DELETE FROM booking where booking_id = ?";
+    $stmt = $pdo->prepare($q);
+    $stmt->execute([$booking_id]);
+    $result = $stmt->rowCount();
+  } catch(PDOException $e) {
+    $result = 0;
+  }
 
   if (!$result) {    
     dangerMsg('There was an error.');
   } else {
-    dangerMsg('Booking ID '.$booking_id.' deleted');
+    successMsg('Booking ID '.$booking_id.' deleted');
   }
 }
 
-$query = "SELECT * FROM booking ORDER BY hall_id, date";
+$query = "SELECT booking_id, hall_id, client_id, description, date, slot FROM booking ORDER BY hall_id, date";
 $bookings = $pdo->query($query);
 ?>
   
-<h2 class="text-center">Bookings</h2>                                                                                      
+<h2 class="text-center">Bookings</h2>
 <div class="table-responsive">
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Hall</th>
         <th>Client</th>
+        <th>Description</th>
         <th>Date</th>
         <th>Slot</th>
         <th>Action</th>
@@ -39,9 +42,9 @@ $bookings = $pdo->query($query);
     foreach ($bookings as $r) {
     ?>
       <tr>
-        <td><?=$r['booking_id'];?></td>
         <td><?=getHall($r['hall_id'])['name'];?></td>
         <td><?=getClient($r['client_id'])['name'];?></td>
+        <td><?=$r['description'];?></td>
         <td><?=$r['date'];?></td>
         <td><?=$r['slot'];?></td>
         <td>
@@ -60,5 +63,6 @@ $bookings = $pdo->query($query);
     </tbody>
   </table>
 </div>
+<a class="btnAdd" href="add_booking.php" role="button">Add</a>
 <?php
 include 'inc/footer.inc.php';

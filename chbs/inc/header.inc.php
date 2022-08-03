@@ -1,4 +1,11 @@
-<?php include 'functions.php'; ?>
+<?php
+session_start();
+if (!isset($_COOKIE['username'])) {
+  header('Location: login.php');
+  exit;
+}
+include 'functions.php';
+?>
 <!DOCTYPE html>
 <html lang="EN">
 <head>
@@ -41,10 +48,13 @@
         <div class="dropdown-menu" aria-labelledby="dropdown04">
           <a class="dropdown-item" href="view_booking.php">View Bookings</a>
           <a class="dropdown-item" href="add_booking.php">Add Booking</a>
+          <a class="dropdown-item" href="show_bookings.php">Upcoming Bookings</a>
+          <a class="dropdown-item" href="delete_old_bookings.php">Remove Old Bookings</a>
+          <a class="dropdown-item" href="backup_db.php">Backup Database</a>
         </div>
       </li>
     </ul>
-<!--    <a class="btn btn-success my-2 my-sm-0" href="logout.php" role="button">Logout []</a> -->
+    <a class="btn btn-success my-2 my-sm-0" href="logout.php" role="button">Logout</a>
   </div>
 </nav>
 <main class="container">

@@ -58,6 +58,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
       </div>
       <button type="submit" name="login" class="btn btn-primary">Login</button>
     </form>
+    <p>To log in to the demo system use username / password admin / admin</p>
   </div>
 </main>
 </body>

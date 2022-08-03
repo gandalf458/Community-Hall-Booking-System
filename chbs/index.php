@@ -1,7 +1,7 @@
 <?php include 'inc/header.inc.php';?>
 
 <div class="hpblock">
-  <h2>Welcome to Community Hall Booking System</h2>
+  <h2>Community Hall Booking System Admin</h2>
   <p class="logo"><img src="img/logo.png" alt="logo" width="120" height="120"></p>
   <div class="navBox">
     <a class="navC" href="view_client.php">View Clients</a>
@@ -13,6 +13,12 @@
     <a class="navM" href="add_manager.php">Add Manager</a>
     <a class="navB" href="add_booking.php">Add Booking</a>
   </div>
+  <?php
+  /**
+   * Will need to change the message below depending on the installation
+   */
+  ?>
+  <p>A demonstration of a hall booking system. <a href="https://github.com/gandalf458/Community-Hall-Booking-System">Fork me at GitHub</a>.</p>
 </div>
 
 <?php include 'inc/footer.inc.php';?>

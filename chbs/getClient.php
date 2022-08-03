@@ -1,6 +1,5 @@
 <?php
 include 'inc/functions.php';
-#var_dump($_POST); die;
 if ($_POST['search_name'] == '') {
   $query = "SELECT * FROM client";
 } else {

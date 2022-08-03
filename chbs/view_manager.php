@@ -2,20 +2,22 @@
 include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $manager_id = $_POST['manager_id'];
-  $name = getManager($manager_id)['name'];
+  $managerId = (int)$_POST['manager_id'];
+  $name = getManager($managerId)['name'];
 
-// Are you sure?
-// Check there are no halls for which they are manager
-  $q = "DELETE FROM manager where manager_id = ?";
-  $stmt = $pdo->prepare($q);
-  $stmt->execute([$manager_id]);
-  $result = $stmt->rowCount();
+  try {
+    $q = "DELETE FROM manager where manager_id = ?";
+    $stmt = $pdo->prepare($q);
+    $stmt->execute([$managerId]);
+    $result = $stmt->rowCount();
+  } catch(PDOException $e) {
+    $result = 0;
+  }
 
   if (!$result) {
     dangerMsg('Can\'t delete manager. To delete first remove all <strong>Halls</strong> under him.');
   } else {
-    dangerMsg('Manager '.$name.' deleted');
+    successMsg('Manager '.$name.' deleted');
   }
 }
 
@@ -60,5 +62,6 @@ $managers = $pdo->query($query);
     </tbody>
   </table>
 </div>
+<a class="btnAdd" href="add_manager.php" role="button">Add</a>
 <?php
 include 'inc/footer.inc.php';

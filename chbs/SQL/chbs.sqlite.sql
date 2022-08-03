@@ -18,11 +18,12 @@ CREATE TABLE IF NOT EXISTS "booking" (
 	"booking_id"	INTEGER,
 	"client_id"	INTEGER,
 	"hall_id"	INTEGER,
+	"description" TEXT,
 	"slot"	TEXT,
 	"date"	TEXT,
 	PRIMARY KEY("booking_id"),
-	FOREIGN KEY("client_id") REFERENCES client(client_id),
-	FOREIGN KEY("hall_id") REFERENCES hall(hall_id)
+	FOREIGN KEY("hall_id") REFERENCES "hall"("hall_id"),
+	FOREIGN KEY("client_id") REFERENCES "client"("client_id")
 );
 CREATE TABLE IF NOT EXISTS "hall" (
 	"hall_id"	INTEGER,
@@ -33,7 +34,7 @@ CREATE TABLE IF NOT EXISTS "hall" (
 	"size"	TEXT,
 	"manager_id"	INTEGER,
 	PRIMARY KEY("hall_id"),
-	FOREIGN KEY("manager_id") REFERENCES manager(manager_id)
+	FOREIGN KEY("manager_id") REFERENCES "manager"("manager_id")
 );
 CREATE TABLE IF NOT EXISTS "users" (
 	"username"	TEXT,

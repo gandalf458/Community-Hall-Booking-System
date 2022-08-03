@@ -23,16 +23,22 @@ main {
   margin-bottom: 3em;
 }
 
+/* Home page */
+
 .logo {
   margin: 2em 0 0;
 }
+.logo img {
+  border-radius: 4px;
+  box-shadow: #333 3px 3px 10px;
+}
 
-/* Home page */
 .hpblock {
   padding: 2rem 1rem;
   margin-bottom: 2rem;
-  background-color: #e9ecef;
-  border-radius: .3rem;
+  background-color: hsl(210, 17%, 93%);
+  border-radius: 8px;
+  border: 1px solid hsl(210, 17%, 43%);
   text-align: center;
 }
 .navBox {
@@ -41,12 +47,13 @@ main {
   grid-template-rows: auto;
   gap: .8em;
   justify-content: center;
-  margin: 2em 0 0;
+  margin: 2em 0;
 }
 .navC, .navH, .navM, .navB {
   text-align: center;
   transition: background-color .15s ease-in-out;
   border-radius: .25em;
+  box-shadow: #666 2px 2px 5px;
 }
 .navC {
   background-color: #336666;
@@ -81,50 +88,48 @@ main {
 
 /* BS replacement */
 
-/* Edit/Delete buttons */
+/* Edit/Delete/Add buttons */
 .btnPair {
   display: flex;
 }
-.btnEdit, .btnDelete {
+.btnEdit, .btnDelete, .btnAdd {
+  color: white;
   border: 1px solid transparent;
-  padding: .375rem .75rem;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,
-    background-color .15s ease-in-out,
-    border-color .15s ease-in-out,
-    box-shadow .15s ease-in-out;
+  padding: 5px 12px;
+  border-radius: 4px;
+  transition: background-color .15s ease-in-out;
   cursor: pointer;
 }
 .btnEdit {
-  color: #fff;
-  background-color: #007bff;
-  border-color: #007bff;
-  margin-right: .3em;
+  background-color: hsl(211, 100%, 50%);
+  margin-right: 5px;
 }
 .btnEdit:hover {
-  color: #fff;
-  background-color: #0069d9;
-  border-color: #0062cc;
+  color: white;
+  background-color: hsl(211, 100%, 40%);
   text-decoration: none;
 }
 .btnDelete {
-  color: #fff;
-  background-color: #dc3545;
-  border-color: #dc3545;
+  background-color: hsl(354, 70%, 54%);
 }
 .btnDelete:hover {
-  color: #fff;
-  background-color: #c82333;
-  border-color: #bd2130;
+  background-color: hsl(354, 70%, 44%);
+}
+.btnAdd {
+  background-color: hsl(134, 61%, 41%);
+}
+.btnAdd:hover {
+  color: white;
+  background-color: hsl(134, 61%, 31%);
+  text-decoration: none;
 }
 
 @media only screen and (max-width: 600px) {
   .navBox {
     grid-template-columns: 8em 8em!important;
   }
-  .navC {order: 1;}
-  .navH {order: 2;}
-  .navM {order: 3;}
-  .navB {order: 4;}
-  }
+  .navC { order: 1; }
+  .navH { order: 2; }
+  .navM { order: 3; }
+  .navB { order: 4; }
 }

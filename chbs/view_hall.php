@@ -2,20 +2,22 @@
 include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $hall_id = $_POST['hall_id'];
-  $name = getHall($hall_id)['name'];
+  $hallId = (int)$_POST['hall_id'];
+  $name = getHall($hallId)['name'];
 
-// Are you sure?
-// check there are no booking for this hall
-  $q = "DELETE FROM hall where hall_id = ?";
-  $stmt = $pdo->prepare($q);
-  $stmt->execute([$hall_id]);
-  $result = $stmt->rowCount();
+  try {
+    $q = "DELETE FROM hall WHERE hall_id = ?";
+    $stmt = $pdo->prepare($q);
+    $stmt->execute([$hallId]);
+    $result = $stmt->rowCount();
+  } catch(PDOException $e) {
+    $result = 0;
+  }
 
   if (!$result) {
-    dangerMsg('Can\'t delete hall. To delete first remove all <strong>Bookings</strong> of <strong>'.$name.'</strong>.');
+    dangerMsg('Can\'t delete hall. To delete first remove all <strong>Bookings</strong> for the hall.');
   }  else {
-    dangerMsg('Hall '.$name.' deleted');
+    successMsg('Hall '.$name.' deleted');
   }
 }
 
@@ -28,7 +30,6 @@ $halls = $pdo->query($query);
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Phone</th>
         <th>Address</th>
@@ -43,7 +44,6 @@ $halls = $pdo->query($query);
     foreach ($halls as $r) {
     ?>
       <tr>
-        <td><?=$r['hall_id']?></td>
         <td><?=$r['name']?></td>
         <td><?=$r['phone']?></td>
         <td><?=$r['address']?></td>
@@ -66,5 +66,6 @@ $halls = $pdo->query($query);
     </tbody>
   </table>
 </div>
+<a class="btnAdd" href="add_hall.php" role="button">Add</a>
 <?php
 include 'inc/footer.inc.php';

@@ -1,25 +1,31 @@
 <?php include 'inc/header.inc.php'; ?>
-
+<!--
 <h2>Find Booking</h2>
   <form class="form-inline my-2 my-lg-0">
-    <input class="form-control mr-sm-2" type="text" name="booking_id" placeholder="Search" aria-label="Search">
-    <button class="btn btn-success my-2 my-sm-0" type="submit">Search</button>
+    <input class="form-control mr-sm-2" type="text" name="booking_id" placeholder="Enter Booking ID" aria-label="Search">
+    <button class="btn btn-success my-2 my-sm-0" type="submit">Submit</button>
   </form>
  <br>
  <br>
  <br>
-
+-->
 <?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   
-  $booking_id = $_POST['booking_id'];
-  $client_id  = $_POST['client_id'];
-  $hall_id    = $_POST['hall_id'];
-  $slot       = $_POST['slot'];
-  $date       = $_POST['date'];
+  $booking_id  = clean_str($_POST['booking_id']);
+  $client_id   = clean_str($_POST['client_id']);
+  $description = clean_str($_POST['description']);
+  $hall_id     = clean_str($_POST['hall_id']);
+  $slot        = clean_str($_POST['slot']);
+  $date        = clean_str($_POST['date']);
 
-  $q = 'UPDATE booking SET client_id=:client_id, hall_id=:hall_id, slot=:slot, date=:date WHERE booking_id = :booking_id';
-  $data = ['hall_id' => $hall_id, 'slot' => $slot, 'date' => $date, 'booking_id' => $booking_id, 'client_id' => $client_id];
+  $q = 'UPDATE 
+      booking
+    SET
+      client_id=:client_id, description=:description, hall_id=:hall_id, slot=:slot, date=:date
+    WHERE
+      booking_id = :booking_id';
+  $data = ['hall_id' => $hall_id, 'slot' => $slot, 'date' => $date, 'booking_id' => $booking_id, 'client_id' => $client_id, 'description' => $description];
   $stmt = $pdo->prepare($q);
   $stmt->execute($data);
 
@@ -34,18 +40,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 if (isset($_GET['booking_id'])) {
 
   $booking_id = $_GET['booking_id'];
-  $q = 'SELECT * FROM booking where booking_id = ?';
+  $q = 'SELECT client_id, hall_id, description, slot, date FROM booking where booking_id = ?';
   $stmt = $pdo->prepare($q);
   $stmt->execute([$booking_id]);
   $booking = $stmt->fetch();
   if ($booking) {
-    $client_id = $booking['client_id'];
-    $hall_id   = $booking['hall_id'];
-    $slot      = $booking['slot'];
-    $date      = $booking['date'];
+    $client_id   = $booking['client_id'];
+    $description = $booking['description'];
+    $hall_id     = $booking['hall_id'];
+    $slot        = $booking['slot'];
+    $date        = $booking['date'];
 ?>
 
-  <h3>Edit Booking ID: <?=$booking_id?></h3>
+  <h2>Edit Booking ID: <?=$booking_id?></h2>
   <form method="post" action="edit_booking.php">
     <input type="hidden" name="booking_id" value="<?=$booking_id?>">
    <div class="form-group">
@@ -62,6 +69,10 @@ if (isset($_GET['booking_id'])) {
       }
       ?>
       </select>
+    </div>
+    <div class="form-group">
+      <label for="description">Description</label>
+      <input type="text" name="description" value="<?=$description?>" id="description" required class="form-control" placeholder="">
     </div>
     <div class="form-group">
       <label for="hall">Hall</label>

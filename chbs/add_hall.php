@@ -3,12 +3,12 @@ include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-  $name    = $_POST['name'];
-  $phone   = $_POST['phone'];
-  $address = $_POST['address'];
-  $rent    = $_POST['rent'];
-  $manager_id = $_POST['manager_id'];
-  $size    = $_POST['size'];
+  $name       = clean_str($_POST['name']);
+  $phone      = clean_str($_POST['phone']);
+  $address    = clean_str($_POST['address']);
+  $rent       = clean_str($_POST['rent']);
+  $manager_id = clean_str($_POST['manager_id']);
+  $size       = clean_str($_POST['size']);
 
   $q = 'INSERT INTO hall (name, phone, address, rent, size, manager_id) VALUES (:name, :phone, :address, :rent, :size, :manager_id);';
   $data = ['name' => $name, 'phone' => $phone, 'address' => $address, 'rent' => $rent, 'size' => $size, 'manager_id' => $manager_id];
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="form-group">
       <label for="address">Address</label>
-      <input type="text" name="address" required class="form-control" id="address" aria-describedby="addHelp" placeholder="Enter Address">
+      <input type="text" name="address" required class="form-control" id="address" placeholder="Enter Address">
     </div>
     <div class="form-group">
       <label for="rent">Rent</label>

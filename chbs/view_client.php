@@ -2,19 +2,22 @@
 include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $client_id = $_POST['client_id'];
-  $name = getClient($client_id)['name'];
+  $clientId = (int)$_POST['client_id'];
+  $name = getClient($clientId)['name'];
 
-// Are you sure?
-  $q = "DELETE FROM client where client_id = ?";
-  $stmt = $pdo->prepare($q);
-  $stmt->execute([$client_id]);
-  $result = $stmt->rowCount();
+  try {
+    $q = "DELETE FROM client where client_id = ?";
+    $stmt = $pdo->prepare($q);
+    $stmt->execute([$clientId]);
+    $result = $stmt->rowCount();
+  } catch(PDOException $e) {
+    $result = 0;
+  }
 
   if (!$result) {
     dangerMsg('Can\'t delete client. To delete first remove all <strong>Bookings</strong> by him.');
   } else {
-    dangerMsg('Client '.$name.' deleted');
+    successMsg('Client '.$name.' deleted');
   }
 }
 
@@ -27,9 +30,10 @@ $clients = $pdo->query($query);
 <form>
   <input class="form-control" id="searchText" type="text" placeholder="Search by client name, phone, address etc." aria-label="Search">
 </form>   
-<br>                                                                               
+<br>
 <div id="search-result">
   <?php include 'inc/commonClient.inc.php'; ?>
 </div>
+<a class="btnAdd" href="add_client.php" role="button">Add</a>
 <?php
 include 'inc/footer.inc.php';

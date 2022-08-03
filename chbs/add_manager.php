@@ -3,9 +3,9 @@ include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-  $name  = $_POST['name'];
-  $phone = $_POST['phone'];
-  $email = $_POST['email'];
+  $name  = clean_str($_POST['name']);
+  $phone = clean_str($_POST['phone']);
+  $email = clean_str($_POST['email']);
 
   $q = 'INSERT INTO manager (name, phone, email) VALUES (:name, :phone, :email)';
   $data = ['name' => $name, 'phone' => $phone, 'email' => $email];
@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <form method="post">
     <div class="form-group">
       <label for="name">Manager Name</label>
-      <input type="text" name="name" required class="form-control" id="name" aria-describedby="emailHelp" placeholder="Enter Name">
+      <input type="text" name="name" required class="form-control" id="name" placeholder="Enter Name">
     </div>
     <div class="form-group">
       <label for="phone">Phone</label>

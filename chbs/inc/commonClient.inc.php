@@ -1,13 +1,12 @@
 <?php
-//
-// Common code for view_client.php and getClient
-//
+/**
+ * Common code for view_client.php and getClient
+ */
 ?>
 <div class="table-responsive">          
   <table class="table">
     <thead>
       <tr>
-        <th>ID</th>
         <th>Name</th>
         <th>Phone</th>
         <th>Address</th>
@@ -20,7 +19,6 @@
     foreach ($clients as $r) {
     ?>
       <tr>
-        <td><?=$r['client_id']?></td>
         <td><?=$r['name']?></td>
         <td><?=$r['phone']?></td>
         <td><?=$r['address']?></td>

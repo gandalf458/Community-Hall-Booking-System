@@ -1,46 +1,53 @@
-<?php
-// needs work
-include 'inc/header.inc.php';
+<!DOCTYPE html>
+<html lang="EN">
+<head>
+<title>Community Hall Booking System</title>
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<main role="main" class="container">
+  <div class="login-area">
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  $pdo = new PDO('sqlite:chbs.sqlite');
-  if (!$pdo)
-    echo 'Connection Error';
+    <?php
+    require_once 'inc/functions.php';
 
-  $username = $_POST['username'];
-  $password = $_POST['password'];
-  $type     = 'admin';
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      $pdo = new PDO('sqlite:chbs.sqlite');
+      if (!$pdo)
+        echo 'Connection Error';
 
-  $q = 'INSERT INTO users (username, password, type) VALUES (:username, :password, :type)';
-  $data = ['username' => $username, 'password' => $password, 'type' => $type];
-  $stmt = $pdo->prepare($q);
-  $stmt->execute($data);
+      $username = clean_str($_POST['username']);
+      $password = password_hash(clean_str($_POST['password']), PASSWORD_DEFAULT);
+      $type     = 'admin';
 
-#  $result = mysqli_query($pdo,"INSERT INTO client(client_id,name,phone,address,email) VALUES(NULL,'{$name}', '{$phone}', '{$add}', '{$email}')");
+      $q = 'INSERT INTO users (username, password, type) VALUES (:username, :password, :type)';
+      $data = ['username' => $username, 'password' => $password, 'type' => $type];
+      $stmt = $pdo->prepare($q);
+      $stmt->execute($data);
 
-  if (!$stmt){
-    echo '<p>An error occurred.</p>';
-  }  else {
-    echo '<p class="msg">Inserted Successfully</p>';
-  }
+      if (!$stmt){
+        dangerMsg('An error occurred  ');
+      }  else {
+        successMsg('Inserted Successfully');
+      }
 
-}
-?>
+    }
+    ?>
 
-  <form method="post">
-    <h1>Register</h1>
-    <p>
-      <label for="username">Name</label>    
-      <input type="text" name="username" placeholder="Enter the user's name">
-    </p>
-    <p>
-      <label for="password">Phone</label>
-      <input type="text" name="password" placeholder="Enter password">
-    </p>
-    <p>
-      <input class="btn" type="submit" name="register" value="Register">
-    </p>
-  </form>
-    
-<?php
-include 'inc/footer.inc.php';
+    <form method="post">
+      <h1>Register New User</h1>
+      <div class="form-group">
+        <label for="username">Username</label>    
+        <input type="text" name="username" class="form-control" autocomplete="off" required placeholder="Enter the user's name">
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" name="password" class="form-control" autocomplete="off" required placeholder="Enter password">
+      </div>
+      <button class="btn btn-primary" type="submit" name="register">Register</button>
+    </form>
+  </div>
+</main>  
+</body>
+</html>

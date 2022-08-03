@@ -3,10 +3,10 @@ include 'inc/header.inc.php';
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
-  $name    = $_POST['name'];
-  $phone   = $_POST['phone'];
-  $address = $_POST['address'];
-  $email   = $_POST['email'];
+  $name    = clean_str($_POST['name']);
+  $phone   = clean_str($_POST['phone']);
+  $address = clean_str($_POST['address']);
+  $email   = clean_str($_POST['email']);
 
   $q = 'INSERT INTO client (name, phone, address, email) VALUES (:name, :phone, :address, :email);';
   $data = ['name' => $name, 'phone' => $phone, 'address' => $address, 'email' => $email];
@@ -29,7 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
     <div class="form-group">
       <label for="address">Address</label>
-      <input type="text" name="address" required class="form-control" id="address" aria-describedby="addHelp" placeholder="Enter Address">
+      <input type="text" name="address" required class="form-control" id="address" placeholder="Enter Address">
     </div>
     <div class="form-group">
       <label for="phone">Phone</label>
